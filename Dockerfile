@@ -76,9 +76,11 @@ RUN cd / && \
 	wget https://download.pytorch.org/libtorch/cu118/libtorch-cxx11-abi-shared-with-deps-2.0.1%2Bcu118.zip -O libtorch-cu118.zip && \
 	unzip libtorch-cu118.zip && rm libtorch-cu118.zip
 
-ENV Torch_DIR /libtorch/share/cmake/Torch
+ENV Torch_DIR=/libtorch/share/cmake/Torch
 
 # repo
 RUN git clone https://github.com/HuajianUP/Photo-SLAM.git /Photo-SLAM
 
 WORKDIR /Photo-SLAM
+
+RUN ./build.sh
