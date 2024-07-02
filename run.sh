@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-rocker --nvidia --x11 \
-  --volume $PWD/data:/data $PWD/results:/results -- \
+xhost +si:localuser:root
+
+docker run --gpus all -it --privileged --ipc=host --pid=host \
+  -e NVIDIA_DRIVER_CAPABILITIES=all -e DISPLAY \
+  -v /dev:/dev -v /tmp/.X11-unix/:/tmp/.X11-unix \
+  -v $PWD/data:/data -v $PWD/results:/results \
   photo_slam:latest
 
+xhost -si:localuser:root
